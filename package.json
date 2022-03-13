@@ -1,0 +1,26 @@
+{
+  "name": "crypto-com-app-to-blockpit",
+  "version": "0.0.1",
+  "description": "Import crypto.com App Transactions into Blockpit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haidy777/crypto-com-app-to-blockpit.git"
+  },
+  "keywords": [],
+  "author": "Philipp Haidenbauer <haidy777@haidy777.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Haidy777/crypto-com-app-to-blockpit/issues"
+  },
+  "homepage": "https://github.com/Haidy777/crypto-com-app-to-blockpit#readme",
+  "dependencies": {
+    "csv-parse": "^5.0.4",
+    "dayjs": "^1.10.8",
+    "lodash": "^4.17.21",
+    "puppeteer": "^13.5.1"
+  }
+}
