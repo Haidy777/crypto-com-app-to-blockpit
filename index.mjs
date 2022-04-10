@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import {join} from "path";
 
-const {BLOCKPIT_EMAIL, BLOCKPIT_PASSWORD, BLOCKPIT_DEPOT} = process.env;
+const {BLOCKPIT_EMAIL, BLOCKPIT_PASSWORD, BLOCKPIT_DEPOT, CHROME_HEADLESS} = process.env;
 
 import {fileURLToPath} from 'url';
 import {dirname} from 'path';
@@ -10,11 +10,13 @@ import importTransactions from "./src/import.mjs";
 import parseTransactions from "./src/parse.mjs";
 import filterTransactions from "./src/filter.mjs";
 import {
+    BLOCKPIT_TRANSACTION_TYPES,
     CRYPTO_COM_DUST_TRANSACTION_TYPES,
     CRYPTO_COM_TO_BLOCKPIT,
     CRYPTO_COM_TRANSACTION_TYPES, KNOWN_CURRENCIES
 } from "./src/consts.mjs";
 import _ from "lodash";
+import exportToBlockpit from "./src/blockpit.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -87,6 +89,7 @@ const IMPORT_DIR = join(__dirname, 'import');
 
                     case CRYPTO_COM_TRANSACTION_TYPES.referral_card_cashback:
                     case CRYPTO_COM_TRANSACTION_TYPES.crypto_earn_interest_paid:
+                    case CRYPTO_COM_TRANSACTION_TYPES.crypto_earn_extra_interest_paid:
                     case CRYPTO_COM_TRANSACTION_TYPES.reimbursement:
                     case CRYPTO_COM_TRANSACTION_TYPES.crypto_transfer:
                     case CRYPTO_COM_TRANSACTION_TYPES.referral_bonus:
@@ -102,6 +105,7 @@ const IMPORT_DIR = join(__dirname, 'import');
 
                 if (notHandled) {
                     console.error('Transaction could not be interpreted!', transaction);
+                    process.exit(1);
                 } else {
                     preparedTransactions.push(preparedTransaction);
                 }
@@ -240,8 +244,12 @@ const IMPORT_DIR = join(__dirname, 'import');
 
         console.log(`Transactions to import: ${uniqTransactions.length}`);
 
-        // TODO puppeteer clicker :)
-    }
+        await exportToBlockpit(uniqTransactions, BLOCKPIT_EMAIL, BLOCKPIT_PASSWORD, BLOCKPIT_DEPOT, CHROME_HEADLESS === undefined ? true : JSON.parse(CHROME_HEADLESS));
 
-    throw 'BLOCKPIT_EMAIL, BLOCKPIT_PASSWORD and BLOCKPIT_DEPOT need to be supplied to work!';
+        console.log('Finished import. Do not forget to check all imported transactions!');
+
+        process.exit(0);
+    } else {
+        throw 'BLOCKPIT_EMAIL, BLOCKPIT_PASSWORD and BLOCKPIT_DEPOT need to be supplied to work!';
+    }
 })();

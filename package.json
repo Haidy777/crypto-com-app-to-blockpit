@@ -1,7 +1,7 @@
 {
   "name": "crypto-com-app-to-blockpit",
   "version": "0.0.1",
-  "description": "Import crypto.com App Transactions into Blockpit",
+  "description": "Import crypto.com App Transactions into Blockpit.io",
   "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

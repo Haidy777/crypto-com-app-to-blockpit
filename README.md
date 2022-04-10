@@ -10,3 +10,9 @@ Because of this (and because the CSV format of the exports) could change, this t
 For an example I added the month of March 2022 of my transactions into the import directory. Be sure to remove them before you add your own, or you are going to import my transactions and mess up your asset balances.
 
 **Use at your own risk! The first time I imported I had a bunch of duplicates, but there is know duplicate detection. Be sure to check the Values in Blockpit after importing to see if they could be incorrect.**
+
+## TODO
+ - [ ] Tutorial on Usage
+ - [ ] Prettier & ESLint
+ - [ ] Release a built binary? (for easier usage)
+ - [ ] Typescript?

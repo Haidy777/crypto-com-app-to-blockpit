@@ -6,6 +6,7 @@ export const CRYPTO_COM_TRANSACTION_TYPES = {
     recurring_buy_order: 'recurring_buy_order', // fiat -> crypto
 
     crypto_earn_interest_paid: 'crypto_earn_interest_paid', // staking interest
+    crypto_earn_extra_interest_paid: 'crypto_earn_extra_interest_paid', // extra staking interest
 
     // only in combination -> converting small balances to cro
     dust_conversion_credited: 'dust_conversion_credited',
@@ -72,6 +73,7 @@ export const CRYPTO_COM_TO_BLOCKPIT = {
     [CRYPTO_COM_TRANSACTION_TYPES.crypto_purchase]: BLOCKPIT_TRANSACTION_TYPES.Tausch,
 
     [CRYPTO_COM_TRANSACTION_TYPES.crypto_earn_interest_paid]: BLOCKPIT_TRANSACTION_TYPES.Staking,
+    [CRYPTO_COM_TRANSACTION_TYPES.crypto_earn_extra_interest_paid]: BLOCKPIT_TRANSACTION_TYPES.Staking,
     [CRYPTO_COM_TRANSACTION_TYPES.mco_stake_reward]: BLOCKPIT_TRANSACTION_TYPES.Staking,
 
     [CRYPTO_COM_TRANSACTION_TYPES.crypto_transfer]: BLOCKPIT_TRANSACTION_TYPES.Einzahlung,
