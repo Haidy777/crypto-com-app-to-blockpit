@@ -2,7 +2,7 @@
   "name": "crypto-com-app-to-blockpit",
   "version": "0.0.1",
   "description": "Import crypto.com App Transactions into Blockpit",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +23,6 @@
     "dotenv": "^16.0.0",
     "lodash": "^4.17.21",
     "puppeteer": "^13.5.2"
-  }
+  },
+  "type": "module"
 }
