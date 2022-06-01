@@ -37,6 +37,8 @@ export const CRYPTO_COM_TRANSACTION_TYPES = {
     viban_deposit: 'viban_deposit', // EUR Einzahlung per SEPA
 
     viban_card_top_up: 'viban_card_top_up', // Card Top Up from FIAT Wallet
+
+    rewards_platform_deposit_credited: 'rewards_platform_deposit_credited', // "Missions" Drop
 };
 
 export const CRYPTO_COM_DUST_TRANSACTION_TYPES = [CRYPTO_COM_TRANSACTION_TYPES.dust_conversion_credited, CRYPTO_COM_TRANSACTION_TYPES.dust_conversion_debited];
@@ -88,6 +90,7 @@ export const CRYPTO_COM_TO_BLOCKPIT = {
     [CRYPTO_COM_TRANSACTION_TYPES.referral_card_cashback]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
     [CRYPTO_COM_TRANSACTION_TYPES.referral_bonus]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
     [CRYPTO_COM_TRANSACTION_TYPES.reimbursement]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
+    [CRYPTO_COM_TRANSACTION_TYPES.rewards_platform_deposit_credited]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
 };
 
 export const KNOWN_CURRENCIES = {
@@ -113,10 +116,11 @@ export const KNOWN_CURRENCIES = {
     DYDX: 'DYDX',
     AXS: 'AXS',
     MATIC: 'MATIC',
+    LUNA: 'LUNA',
 };
 
 export const CURRENCY_BLOCKPIT_NAME_MAP = {
-    [KNOWN_CURRENCIES.CRO]: 'Crypto.com Coin (CRO)',
+    [KNOWN_CURRENCIES.CRO]: 'Cronos (CRO)',
     [KNOWN_CURRENCIES.EUR]: 'Euro (EUR)',
     [KNOWN_CURRENCIES.BTC]: 'Bitcoin (BTC)',
     [KNOWN_CURRENCIES.ETH]: 'Ethereum (ETH)',
@@ -138,6 +142,7 @@ export const CURRENCY_BLOCKPIT_NAME_MAP = {
     [KNOWN_CURRENCIES.DYDX]: 'dYdX (DYDX)',
     [KNOWN_CURRENCIES.AXS]: 'Axie Infinity (old) (AXS)',
     [KNOWN_CURRENCIES.MATIC]: 'Polygon (MATIC)',
+    [KNOWN_CURRENCIES.LUNA]: 'Luna Coin (LUNA)',
 }
 
 export const SPECIAL_SEARCH_CURRENCIES = {
@@ -163,4 +168,5 @@ export const SPECIAL_SEARCH_CURRENCIES = {
     [KNOWN_CURRENCIES.DYDX]: 'DYDX',
     [KNOWN_CURRENCIES.AXS]: 'AXS',
     [KNOWN_CURRENCIES.MATIC]: 'MATIC',
+    [KNOWN_CURRENCIES.LUNA]: 'LUNA',
 }

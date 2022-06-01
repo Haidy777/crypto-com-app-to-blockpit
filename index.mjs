@@ -94,6 +94,7 @@ const IMPORT_DIR = join(__dirname, 'import');
                     case CRYPTO_COM_TRANSACTION_TYPES.crypto_transfer:
                     case CRYPTO_COM_TRANSACTION_TYPES.referral_bonus:
                     case CRYPTO_COM_TRANSACTION_TYPES.mco_stake_reward:
+                    case CRYPTO_COM_TRANSACTION_TYPES.rewards_platform_deposit_credited:
                         preparedTransaction.toAmount = transaction.fromAmount;
                         preparedTransaction.toCurrency = transaction.fromCurrency;
                         break;

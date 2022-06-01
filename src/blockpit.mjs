@@ -45,6 +45,7 @@ export default async function exportToBlockpit(transactions, user, password, dep
     const doneTransactionTime = [];
 
     for (let i = 0; i < transactions.length; i++) {
+        // TODO if error in for -> try to re add transaction?
         const start = Date.now();
         const preparedTransaction = transactions[i];
 
