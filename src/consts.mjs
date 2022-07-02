@@ -116,7 +116,7 @@ export const KNOWN_CURRENCIES = {
     DYDX: 'DYDX',
     AXS: 'AXS',
     MATIC: 'MATIC',
-    LUNA: 'LUNA',
+    BNB: 'BNB',
 };
 
 export const CURRENCY_BLOCKPIT_NAME_MAP = {
@@ -142,7 +142,7 @@ export const CURRENCY_BLOCKPIT_NAME_MAP = {
     [KNOWN_CURRENCIES.DYDX]: 'dYdX (DYDX)',
     [KNOWN_CURRENCIES.AXS]: 'Axie Infinity (old) (AXS)',
     [KNOWN_CURRENCIES.MATIC]: 'Polygon (MATIC)',
-    [KNOWN_CURRENCIES.LUNA]: 'Luna Coin (LUNA)',
+    [KNOWN_CURRENCIES.BNB]: 'Binance Coin (BNB)',
 }
 
 export const SPECIAL_SEARCH_CURRENCIES = {
@@ -168,5 +168,5 @@ export const SPECIAL_SEARCH_CURRENCIES = {
     [KNOWN_CURRENCIES.DYDX]: 'DYDX',
     [KNOWN_CURRENCIES.AXS]: 'AXS',
     [KNOWN_CURRENCIES.MATIC]: 'MATIC',
-    [KNOWN_CURRENCIES.LUNA]: 'LUNA',
+    [KNOWN_CURRENCIES.BNB]: 'BNB',
 }

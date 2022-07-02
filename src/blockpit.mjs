@@ -20,8 +20,8 @@ export default async function exportToBlockpit(transactions, user, password, dep
 
     await page.goto(LOGIN_PAGE_URL);
 
-    await page.click('#hs-eu-confirmation-button'); // cookie banner
-    await page.waitForTimeout(1500);
+    // await page.click('#hs-eu-confirmation-button'); // cookie banner
+    // await page.waitForTimeout(1500);
 
     await page.type('#mat-input-0', user); // email input
     await page.type('#mat-input-1', password); // password input
