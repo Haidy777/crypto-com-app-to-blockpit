@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Haidy777/crypto-com-app-to-blockpit#readme",
   "dependencies": {
     "csv-parse": "^5.3.0",
-    "dayjs": "^1.11.4",
+    "dayjs": "^1.11.5",
     "dotenv": "^16.0.2",
     "lodash": "^4.17.21",
     "puppeteer": "^17.1.0"
