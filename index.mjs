@@ -214,7 +214,7 @@ const IMPORT_DIR = join(__dirname, 'import');
                                                                 toCurrency,
                                                                 fromAmount,
                                                                 toAmount
-                                                            }) => timestamp === preparedTransaction.timestamp
+                                                            }) => `${timestamp}`.slice(0, -4) === `${preparedTransaction.timestamp}`.slice(0, -4) // ignore seconds
                 && fromCurrency === preparedTransaction.fromCurrency
                 && toCurrency === preparedTransaction.toCurrency
                 && fromAmount === preparedTransaction.fromAmount
@@ -225,7 +225,7 @@ const IMPORT_DIR = join(__dirname, 'import');
                                                               toCurrency,
                                                               fromAmount,
                                                               toAmount
-                                                          }) => timestamp === preparedTransaction.timestamp
+                                                          }) => `${timestamp}`.slice(0, -4) === `${preparedTransaction.timestamp}`.slice(0, -4) // ignore seconds
                 && fromCurrency === preparedTransaction.fromCurrency
                 && toCurrency === preparedTransaction.toCurrency
                 && fromAmount === preparedTransaction.fromAmount
