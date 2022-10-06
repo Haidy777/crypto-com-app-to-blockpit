@@ -22,7 +22,7 @@
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
-    "puppeteer": "^18.0.5"
+    "puppeteer": "^18.2.1"
   },
   "type": "module"
 }
