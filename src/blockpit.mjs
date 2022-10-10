@@ -31,11 +31,11 @@ export default async function exportToBlockpit(transactions, user, password, dep
     await waitFor();
 
     await page.click('.footer lib-button button'); // login button
-    await waitFor();
+    await waitFor(5000);
 
     await page.goto(DEPOT_LINK_URL);
 
-    await waitFor();
+    await waitFor(5000);
 
     const depot = await page.evaluateHandle((dN) => Array.from(document.querySelectorAll('strong.ng-star-inserted')).find((el) => el.innerHTML === dN), depotName); // search for the correct depot
 
@@ -77,7 +77,7 @@ export default async function exportToBlockpit(transactions, user, password, dep
             await zeitInput.type(dayjs(new Date(preparedTransaction.timestamp)).format('HH:mm.ss'));
             // input time
 
-            if (preparedTransaction.transactionType === BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten) {
+            if (preparedTransaction.transactionType === BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten || preparedTransaction.transactionType === BLOCKPIT_TRANSACTION_TYPES.Hardfork) {
                 // gifts do need two different times
                 const dI = await inputForLabel(page, 'Zeitpunkt der Akquise'); // TODO multilingual
                 await dI.click({clickCount: 3});
@@ -108,6 +108,7 @@ export default async function exportToBlockpit(transactions, user, password, dep
                     break;
 
                 case BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten:
+                case BLOCKPIT_TRANSACTION_TYPES.Hardfork:
                     await importGift(page, preparedTransaction);
                     break;
 
@@ -135,7 +136,7 @@ export default async function exportToBlockpit(transactions, user, password, dep
             )).click();
             // click create
 
-            await waitFor();
+            await waitFor(2500);
 
             console.log(`Imported: ${i + 1}/${transactions.length}`);
             i++

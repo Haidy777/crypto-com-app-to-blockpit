@@ -39,6 +39,8 @@ export const CRYPTO_COM_TRANSACTION_TYPES = {
     viban_card_top_up: 'viban_card_top_up', // Card Top Up from FIAT Wallet
 
     rewards_platform_deposit_credited: 'rewards_platform_deposit_credited', // "Missions" Drop
+
+    admin_wallet_credited: 'admin_wallet_credited', // First notices with ETHW Transaction -> Hardfork/Airdrop
 };
 
 export const CRYPTO_COM_DUST_TRANSACTION_TYPES = [CRYPTO_COM_TRANSACTION_TYPES.dust_conversion_credited, CRYPTO_COM_TRANSACTION_TYPES.dust_conversion_debited];
@@ -91,6 +93,8 @@ export const CRYPTO_COM_TO_BLOCKPIT = {
     [CRYPTO_COM_TRANSACTION_TYPES.referral_bonus]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
     [CRYPTO_COM_TRANSACTION_TYPES.reimbursement]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
     [CRYPTO_COM_TRANSACTION_TYPES.rewards_platform_deposit_credited]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
+
+    [CRYPTO_COM_TRANSACTION_TYPES.admin_wallet_credited]: BLOCKPIT_TRANSACTION_TYPES.Hardfork,
 };
 
 export const KNOWN_CURRENCIES = {
@@ -117,6 +121,8 @@ export const KNOWN_CURRENCIES = {
     AXS: 'AXS',
     MATIC: 'MATIC',
     BNB: 'BNB',
+    ETHW: 'ETHW',
+    LUNC: 'LUNC',
 };
 
 export const CURRENCY_BLOCKPIT_NAME_MAP = {
@@ -143,11 +149,13 @@ export const CURRENCY_BLOCKPIT_NAME_MAP = {
     [KNOWN_CURRENCIES.AXS]: 'Axie Infinity (old) (AXS)',
     [KNOWN_CURRENCIES.MATIC]: 'Polygon (MATIC)',
     [KNOWN_CURRENCIES.BNB]: 'Binance Coin (BNB)',
+    [KNOWN_CURRENCIES.ETHW]: 'ETHPoW (ETHW)',
+    [KNOWN_CURRENCIES.LUNC]: 'Terra Classic (LUNC)',
 }
 
 export const SPECIAL_SEARCH_CURRENCIES = {
     [KNOWN_CURRENCIES.UNI]: 'unisw',
-    [KNOWN_CURRENCIES.CRO]: 'CRO',
+    [KNOWN_CURRENCIES.CRO]: 'cronos',
     [KNOWN_CURRENCIES.EUR]: 'EUR',
     [KNOWN_CURRENCIES.BTC]: 'BTC',
     [KNOWN_CURRENCIES.ETH]: 'ETH',
@@ -169,4 +177,6 @@ export const SPECIAL_SEARCH_CURRENCIES = {
     [KNOWN_CURRENCIES.AXS]: 'AXS',
     [KNOWN_CURRENCIES.MATIC]: 'MATIC',
     [KNOWN_CURRENCIES.BNB]: 'BNB',
+    [KNOWN_CURRENCIES.ETHW]: 'ETHW',
+    [KNOWN_CURRENCIES.LUNC]: 'LUNC',
 }

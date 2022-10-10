@@ -95,6 +95,7 @@ const IMPORT_DIR = join(__dirname, 'import');
                     case CRYPTO_COM_TRANSACTION_TYPES.referral_bonus:
                     case CRYPTO_COM_TRANSACTION_TYPES.mco_stake_reward:
                     case CRYPTO_COM_TRANSACTION_TYPES.rewards_platform_deposit_credited:
+                    case CRYPTO_COM_TRANSACTION_TYPES.admin_wallet_credited:
                         preparedTransaction.toAmount = transaction.fromAmount;
                         preparedTransaction.toCurrency = transaction.fromCurrency;
                         break;
@@ -243,7 +244,7 @@ const IMPORT_DIR = join(__dirname, 'import');
         }
         // ! Duplicate remover
 
-        console.log(`Transactions to import: ${uniqTransactions.length}`);
+        console.log(`Transactions to import: ${uniqTransactions.length} / ${preparedTransactions.length}`);
 
         await exportToBlockpit(uniqTransactions, BLOCKPIT_EMAIL, BLOCKPIT_PASSWORD, BLOCKPIT_DEPOT, CHROME_HEADLESS === undefined ? true : JSON.parse(CHROME_HEADLESS));
 

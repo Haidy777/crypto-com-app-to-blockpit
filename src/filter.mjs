@@ -6,5 +6,6 @@ export default function filterTransactions (transactions) {
         && transactionType !== '' // remove crypto card transactions (as they are made in EUR)
         && transactionType !== 'lockup_lock' // remove lock for card transaction
         && transactionType !== 'lockup_upgrade' // remove lock for card transaction
+        && transactionType !== 'trading.limit_order.crypto_wallet.fund_lock' // lockup of funds for limit order
     );
 }
