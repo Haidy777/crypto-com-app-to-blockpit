@@ -1,5 +1,11 @@
 import {CURRENCY_BLOCKPIT_NAME_MAP, SPECIAL_SEARCH_CURRENCIES} from "./consts.mjs";
 
+function waitFor(milliseconds = 1500) {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(), milliseconds);
+    });
+}
+
 export function inputForLabel(page, label) {
     return page.evaluateHandle((lbl) => {
         const dateInput = Array.from(
@@ -25,7 +31,7 @@ export function inputForLabel(page, label) {
 export async function clickNewTransactionButton(page) {
     try {
         const newTransactionButton = await page.evaluateHandle(() => {
-            const span = Array.from(document.querySelectorAll('span')).find((el) => el.innerHTML?.includes('Neue Transaktion')); // TODO multilingual
+            const span = Array.from(document.querySelectorAll('button')).find((el) => el.innerHTML?.includes('Neue Transaktion')); // TODO multilingual
 
             if (span) {
                 return span;
@@ -69,7 +75,7 @@ export async function clickTransactionTypeDropdown(page) {
             }
         });
 
-        if (transactionTypeSelect) {
+        if (transactionTypeSelect.click) {
             await transactionTypeSelect.click();
 
             return true;
@@ -79,7 +85,7 @@ export async function clickTransactionTypeDropdown(page) {
     }
 
     await page.reload();
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(15000);
 
     return clickNewTransactionButton(page).then(() => clickTransactionTypeDropdown(page));
 }
@@ -105,6 +111,9 @@ export async function getAndClearDateInput(page) {
 async function importAmountAndCurrency(page, amount, currency) {
     await (await inputForLabel(page, 'Menge')).type(amount); // TODO multilingual
     await (await inputForLabel(page, 'Währung')).type(SPECIAL_SEARCH_CURRENCIES[currency]); // TODO multilingual
+    await (await inputForLabel(page, 'Währung')).click();
+
+    await waitFor(2500)
 }
 
 export async function importStacking(page, preparedTransaction) {
@@ -112,7 +121,7 @@ export async function importStacking(page, preparedTransaction) {
 
     const currencySelection = await page.evaluateHandle(
         (currency) => Array.from(
-            document.querySelectorAll('span.mat-option-text')
+            document.querySelectorAll('.text-bp-text-second')
         ).find((el) => el.innerHTML.includes(currency)),
         CURRENCY_BLOCKPIT_NAME_MAP[preparedTransaction.toCurrency]
     );
@@ -120,7 +129,7 @@ export async function importStacking(page, preparedTransaction) {
     if (currencySelection) {
         await currencySelection.click();
     } else {
-        console.error('COULD NOT CLICK BUTTON');
+        throw 'COULD NOT CLICK BUTTON';
     }
 }
 
@@ -128,9 +137,12 @@ export async function importExchange(page, preparedTransaction) {
     await (await inputForLabel(page, 'Ausgehende Menge')).type(preparedTransaction.fromAmount); // TODO multilingual
     await (await inputForLabel(page, 'Ausgehende Währung')).type(SPECIAL_SEARCH_CURRENCIES[preparedTransaction.fromCurrency]); // TODO multilingual
 
+    await (await inputForLabel(page, 'Ausgehende Währung')).click();
+    await waitFor(2500)
+
     const currencySelection = await page.evaluateHandle(
         (currency) => Array.from(
-            document.querySelectorAll('span.mat-option-text')
+            document.querySelectorAll('.text-bp-text-second')
         ).find((el) => el.innerHTML.includes(currency)),
         CURRENCY_BLOCKPIT_NAME_MAP[preparedTransaction.fromCurrency]
     );
@@ -146,9 +158,12 @@ export async function importExchange(page, preparedTransaction) {
     await (await inputForLabel(page, 'Eingehende Menge')).type(preparedTransaction.toAmount); // TODO multilingual
     await (await inputForLabel(page, 'Eingehende Währung')).type(SPECIAL_SEARCH_CURRENCIES[preparedTransaction.toCurrency]); // TODO multilingual
 
+    await (await inputForLabel(page, 'Eingehende Währung')).click();
+    await waitFor(2500)
+
     const currencySelection2 = await page.evaluateHandle(
         (currency) => Array.from(
-            document.querySelectorAll('span.mat-option-text')
+            document.querySelectorAll('.text-bp-text-second')
         ).find((el) => el.innerHTML.includes(currency)),
         CURRENCY_BLOCKPIT_NAME_MAP[preparedTransaction.toCurrency]
     );
@@ -156,7 +171,7 @@ export async function importExchange(page, preparedTransaction) {
     if (currencySelection2) {
         await currencySelection2.click();
     } else {
-        console.error('COULD NOT CLICK BUTTON');
+        throw 'COULD NOT CLICK BUTTON';
     }
 }
 
@@ -165,15 +180,15 @@ export async function importGift(page, preparedTransaction) {
 
     const currencySelection = await page.evaluateHandle(
         (currency) => Array.from(
-            document.querySelectorAll('span.mat-option-text')
+            document.querySelectorAll('.text-bp-text-second')
         ).find((el) => el.innerHTML.includes(currency)),
         CURRENCY_BLOCKPIT_NAME_MAP[preparedTransaction.toCurrency]
     );
 
-    if (currencySelection) {
+    if (currencySelection && currencySelection.click) {
         await currencySelection.click();
     } else {
-        console.error('COULD NOT CLICK BUTTON');
+        throw 'COULD NOT CLICK BUTTON';
     }
 }
 
@@ -182,7 +197,7 @@ export async function importDeposit(page, preparedTransaction) {
 
     const currencySelection = await page.evaluateHandle(
         (currency) => Array.from(
-            document.querySelectorAll('span.mat-option-text')
+            document.querySelectorAll('.text-bp-text-second')
         ).find((el) => el.innerHTML.includes(currency)),
         CURRENCY_BLOCKPIT_NAME_MAP[preparedTransaction.toCurrency]
     );
@@ -195,12 +210,11 @@ export async function importDeposit(page, preparedTransaction) {
 }
 
 export async function importWithdraw(page, preparedTransaction) {
-    await (await inputForLabel(page, 'Menge')).type(preparedTransaction.fromAmount); // TODO multilingual
-    await (await inputForLabel(page, 'Währung')).type(SPECIAL_SEARCH_CURRENCIES[preparedTransaction.fromCurrency]); // TODO multilingual
+    await importAmountAndCurrency(page, preparedTransaction.toAmount, preparedTransaction.fromCurrency);
 
     const currencySelection = await page.evaluateHandle(
         (currency) => Array.from(
-            document.querySelectorAll('span.mat-option-text')
+            document.querySelectorAll('.text-bp-text-second')
         ).find((el) => el.innerHTML.includes(currency)),
         CURRENCY_BLOCKPIT_NAME_MAP[preparedTransaction.fromCurrency]
     );
@@ -208,6 +222,6 @@ export async function importWithdraw(page, preparedTransaction) {
     if (currencySelection) {
         await currencySelection.click();
     } else {
-        console.error('COULD NOT CLICK BUTTON');
+        throw 'COULD NOT CLICK BUTTON';
     }
 }

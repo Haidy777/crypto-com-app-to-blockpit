@@ -26,20 +26,20 @@ export default async function exportToBlockpit(transactions, user, password, dep
 
     await page.goto(LOGIN_PAGE_URL);
 
-    await page.type('#mat-input-0', user); // email input
-    await page.type('#mat-input-1', password); // password input
+    await page.type('[type="email"]', user); // email input
+    await page.type('[type="password"]', password); // password input
     await waitFor();
 
-    await page.click('.footer lib-button button'); // login button
+    await page.click('button.flex.items-center.w-full.justify-center.bg-blue.text-white.border-transparent.rounded-md.border.border-solid.h-8.px-3.gap-2.shadow-sm'); // login button
     await waitFor(5000);
 
     await page.goto(DEPOT_LINK_URL);
 
     await waitFor(5000);
 
-    const depot = await page.evaluateHandle((dN) => Array.from(document.querySelectorAll('strong.ng-star-inserted')).find((el) => el.innerHTML === dN), depotName); // search for the correct depot
+    const depot = await page.evaluateHandle((dN) => Array.from(document.querySelectorAll('span.overflow-ellipsis.whitespace-nowrap.overflow-hidden')).find((el) => el.innerHTML.includes(dN)), depotName); // search for the correct depot
 
-    if (!depot && !depot.click) {
+    if (!depot || !depot.click) {
         throw 'Depot not found!';
     }
 
@@ -61,7 +61,12 @@ export default async function exportToBlockpit(transactions, user, password, dep
             await waitFor();
 
             // find correct transaction type
-            const transactionType = await page.evaluateHandle((type) => Array.from(document.querySelectorAll('span.mat-option-text')).find((el) => el.innerHTML.includes(type)), preparedTransaction.transactionType);
+            const transactionType = await page.evaluateHandle((type) => Array.from(document.querySelectorAll('ds-dropdown-item')).find((el) => el.innerHTML.includes(type)), preparedTransaction.transactionType);
+
+            if (!transactionType || !transactionType.click) {
+                throw 'Transaction type not found!';
+            }
+
             await transactionType.click();
             await waitFor(500);
             // find correct transaction type
@@ -77,22 +82,11 @@ export default async function exportToBlockpit(transactions, user, password, dep
             await zeitInput.type(dayjs(new Date(preparedTransaction.timestamp)).format('HH:mm.ss'));
             // input time
 
-            if (preparedTransaction.transactionType === BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten || preparedTransaction.transactionType === BLOCKPIT_TRANSACTION_TYPES.Hardfork) {
-                // gifts do need two different times
-                const dI = await inputForLabel(page, 'Zeitpunkt der Akquise'); // TODO multilingual
-                await dI.click({clickCount: 3});
-                await dI.type(dayjs(new Date(preparedTransaction.timestamp)).format('DD.MM.YYYY'));
-
-                const zI = await inputForLabel(page, 'Akquisezeit'); // TODO multilingual
-                await zI.click({clickCount: 3});
-                await zI.type(dayjs(new Date(preparedTransaction.timestamp)).format('HH:mm.ss'));
-            }
-
             await waitFor(500);
 
             // click next
             (await page.evaluateHandle(
-                () => Array.from(document.querySelectorAll('.footer lib-button')).find((el) => el.querySelector('span').innerHTML.includes('Weiter')) // TODO multilingual
+                () => Array.from(document.querySelectorAll('button')).find((el) => el.innerHTML.includes('Weiter')) // TODO multilingual
             )).click();
             await waitFor(500);
             // click next
@@ -128,15 +122,21 @@ export default async function exportToBlockpit(transactions, user, password, dep
             }
             // enter transaction details
 
-            await waitFor(500);
+            await waitFor(5000);
 
             // click create
-            (await page.evaluateHandle(
-                () => Array.from(document.querySelectorAll('.footer lib-button')).find((el) => el.querySelector('span').innerHTML.includes('Erstellen')) // TODO multilingual
-            )).click();
+            const button = await page.evaluateHandle(
+                () => Array.from(document.querySelectorAll('button')).find((el) => el.innerHTML.includes('Speichern')) // TODO multilingual
+            );
+
+            if (button && button.click) {
+                await button.click();
+            } else {
+                throw 'Could not click button!';
+            }
             // click create
 
-            await waitFor(2500);
+            await waitFor(10000);
 
             console.log(`Imported: ${i + 1}/${transactions.length}`);
             i++

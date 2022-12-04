@@ -67,6 +67,7 @@ const IMPORT_DIR = join(__dirname, 'import');
                     case CRYPTO_COM_TRANSACTION_TYPES.crypto_viban_exchange:
                     case CRYPTO_COM_TRANSACTION_TYPES.recurring_buy_order:
                     case CRYPTO_COM_TRANSACTION_TYPES.crypto_exchange:
+                    case CRYPTO_COM_TRANSACTION_TYPES.limit_order:
                         preparedTransaction.fromAmount = transaction.fromAmount;
                         preparedTransaction.fromCurrency = transaction.fromCurrency;
                         preparedTransaction.toAmount = transaction.toAmount;

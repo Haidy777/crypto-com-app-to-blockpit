@@ -41,30 +41,31 @@ export const CRYPTO_COM_TRANSACTION_TYPES = {
     rewards_platform_deposit_credited: 'rewards_platform_deposit_credited', // "Missions" Drop
 
     admin_wallet_credited: 'admin_wallet_credited', // First notices with ETHW Transaction -> Hardfork/Airdrop
+    limit_order: 'trading.limit_order.crypto_wallet.exchange'
 };
 
 export const CRYPTO_COM_DUST_TRANSACTION_TYPES = [CRYPTO_COM_TRANSACTION_TYPES.dust_conversion_credited, CRYPTO_COM_TRANSACTION_TYPES.dust_conversion_debited];
 
 export const BLOCKPIT_TRANSACTION_TYPES = {
-    Tausch: 'Tausch',
-    Einzahlung: 'Einzahlung',
-    Auszahlung: 'Auszahlung',
-    Bezahlvorgang: 'Bezahlvorgang',
+    Tausch: 'Trade',
+    Einzahlung: 'Deposit',
+    Auszahlung: 'Withdrawal',
+    Bezahlvorgang: 'Spending',
     Airdrop: 'Airdrop',
     Hardfork: 'Hardfork',
     Mining: 'Mining',
-    Verleihung: 'Verleihung',
+    Verleihung: 'Lending',
     Staking: 'Staking',
-    Margin_Einkünfte: 'Margin Einkünfte',
-    Margin_Verlust: 'Margin Verlust',
-    Margin_Gebühr: 'Margin Gebühr',
+    Margin_Einkünfte: 'Margin Profit',
+    Margin_Verlust: 'Margin Loss',
+    Margin_Gebühr: 'Margin Fee',
     Masternode: 'Masternode',
     Bounty: 'Bounty',
-    Geschenk_erhalten: 'Geschenk erhalten',
-    Geschenk_gegeben: 'Geschenk gegeben',
-    Gebühr: 'Gebühr',
-    Tokensale: 'Tokensale',
-    Security_Token_Dividende: 'Security Token Dividende',
+    Geschenk_erhalten: 'Gift Received',
+    Geschenk_gegeben: 'Gift Sent',
+    // Gebühr: 'Gebühr',
+    // Tokensale: 'Tokensale',
+    Security_Token_Dividende: 'Security Token Distribution',
 };
 
 export const CRYPTO_COM_TO_BLOCKPIT = {
@@ -95,6 +96,7 @@ export const CRYPTO_COM_TO_BLOCKPIT = {
     [CRYPTO_COM_TRANSACTION_TYPES.rewards_platform_deposit_credited]: BLOCKPIT_TRANSACTION_TYPES.Geschenk_erhalten,
 
     [CRYPTO_COM_TRANSACTION_TYPES.admin_wallet_credited]: BLOCKPIT_TRANSACTION_TYPES.Hardfork,
+    [CRYPTO_COM_TRANSACTION_TYPES.limit_order]: BLOCKPIT_TRANSACTION_TYPES.Tausch,
 };
 
 export const KNOWN_CURRENCIES = {
