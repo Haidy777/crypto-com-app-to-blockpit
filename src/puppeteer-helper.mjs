@@ -109,6 +109,14 @@ export async function getAndClearDateInput(page) {
 }
 
 async function importAmountAndCurrency(page, amount, currency) {
+    if (!amount) {
+        throw 'Amount is missing!';
+    }
+
+    if (!currency) {
+        throw 'Currency is missing!';
+    }
+
     await (await inputForLabel(page, 'Menge')).type(amount); // TODO multilingual
     await (await inputForLabel(page, 'Währung')).type(SPECIAL_SEARCH_CURRENCIES[currency]); // TODO multilingual
     await (await inputForLabel(page, 'Währung')).click();
@@ -210,7 +218,7 @@ export async function importDeposit(page, preparedTransaction) {
 }
 
 export async function importWithdraw(page, preparedTransaction) {
-    await importAmountAndCurrency(page, preparedTransaction.toAmount, preparedTransaction.fromCurrency);
+    await importAmountAndCurrency(page, preparedTransaction.fromAmount, preparedTransaction.fromCurrency);
 
     const currencySelection = await page.evaluateHandle(
         (currency) => Array.from(
